@@ -34,8 +34,8 @@ def reglas():
 
 def juego():
     # Generar una matriz 6x6 con valores aleatorios
-    valoresRandom = []
-    valoresIndexados = []
+    valoresRandom = numpy.full(36,0)
+    valoresIndexados = numpy.full(36,0)
 
     # Llenar 18 espacios aleatorios
     for i in range(17):
@@ -58,21 +58,21 @@ def juego():
                 valoresIndexados[i] = valoresRandom[i]
                 break
 
-    A = numpy.zeros(6,6)
-    print(numpy.matrix(A)) 
+    A = numpy.zeros((6,6))
     
     # Comenzar el juego
-    print("El juego comienza en: ")
+    print("\nEl juego comienza en: ")
     time.sleep(1)
     print("3")
     time.sleep(1)
     print("2")
     time.sleep(1)
-    print("1")
+    print("1\n")
     time.sleep(1)
+
+    print(numpy.matrix(A),"\n")
+    #TODO: inputs
     
-
-
 # TERMINAN FUNCIONES ------------------------------------------
 
 # Iniciar el juego
