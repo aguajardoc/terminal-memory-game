@@ -1,3 +1,7 @@
+import time
+import numpy
+import random
+
 # Imprimir el prompt hasta que el usuario decida jugar
 def inicio():
     while True:
@@ -29,7 +33,45 @@ def reglas():
             continue
 
 def juego():
-    print("No está listo, pero funciona hasta ahora! ;)")
+    # Generar una matriz 6x6 con valores aleatorios
+    valoresRandom = []
+    valoresIndexados = []
+
+    # Llenar 18 espacios aleatorios
+    for i in range(17):
+        while True:
+            index = random.randint(0,35)
+            if index not in valoresIndexados:
+                valoresIndexados[i] = index
+                break
+        while True:
+            casilla = random.randint(0,9999999)
+            if casilla not in valoresRandom:
+                valoresRandom[index] = casilla
+                break
+    
+    # Llenar los otros 18 espacios
+    for k in range(17):
+        while True:
+            otros18 = random.randint(0,35)
+            if otros18 not in valoresIndexados:
+                valoresIndexados[i] = valoresRandom[i]
+                break
+
+    A = numpy.zeros(6,6)
+    print(numpy.matrix(A)) 
+    
+    # Comenzar el juego
+    print("El juego comienza en: ")
+    time.sleep(1)
+    print("3")
+    time.sleep(1)
+    print("2")
+    time.sleep(1)
+    print("1")
+    time.sleep(1)
+    
+
 
 # TERMINAN FUNCIONES ------------------------------------------
 
