@@ -33,33 +33,48 @@ def reglas():
             continue
 
 def juego():
+    cargando = "cargando"
+
     # Generar una matriz 6x6 con valores aleatorios
     valoresRandom = numpy.full(36,0)
-    valoresIndexados = numpy.full(36,0)
+    valoresIndexados = numpy.full(36,-1)
 
-    # Llenar 18 espacios aleatorios
-    for i in range(17):
+    # Llenar los espacios
+    for i in range(18):
+
+        # Escoger una casilla random hasta encontrar una que no ha sido usada
         while True:
             index = random.randint(0,35)
             if index not in valoresIndexados:
                 valoresIndexados[i] = index
                 break
+
+        # Generar un valor aleatorio hasta encontrar uno que no haya sido usado y asignarlo a la casilla encontrada previamente
         while True:
-            casilla = random.randint(0,9999999)
+            casilla = random.randint(10,99)
             if casilla not in valoresRandom:
                 valoresRandom[index] = casilla
                 break
-    
-    # Llenar los otros 18 espacios
-    for k in range(17):
+        
+        # Hacer su par en otra casilla random
         while True:
             otros18 = random.randint(0,35)
             if otros18 not in valoresIndexados:
-                valoresIndexados[i] = valoresRandom[i]
+                valoresIndexados[35-i] = otros18
+                valoresRandom[otros18] = casilla
                 break
+        
+        # Evitar que el usuario se aburra si la generación tarda mucho
+        if i%6 == 0:
+            cargando += "."
+            print(cargando)
+        
+        
+    # Están guardados los índices, pero creo que sería más lógico comparar los valores que existen en esas dos casillas para identificar su paridad
 
-    A = numpy.zeros((6,6))
-    
+    tablero = numpy.zeros((6,6))
+    tableroEscondido = numpy.asmatrix(valoresRandom).reshape(6,6)
+
     # Comenzar el juego
     print("\nEl juego comienza en: ")
     time.sleep(1)
@@ -70,7 +85,7 @@ def juego():
     print("1\n")
     time.sleep(1)
 
-    print(numpy.matrix(A),"\n")
+    print(numpy.matrix(tablero),"\n")
     #TODO: inputs
     
 # TERMINAN FUNCIONES ------------------------------------------
