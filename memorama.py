@@ -33,7 +33,6 @@ def reglas():
             continue
 
 def juego():
-    cargando = "cargando"
 
     # Generar una matriz 6x6 con valores aleatorios
     valoresRandom = numpy.full(36,0)
@@ -64,16 +63,12 @@ def juego():
                 valoresRandom[otros18] = casilla
                 break
         
-        # Evitar que el usuario se aburra si la generación tarda mucho
-        if i%6 == 0:
-            cargando += "."
-            print(cargando)
-        
         
     # Están guardados los índices, pero creo que sería más lógico comparar los valores que existen en esas dos casillas para identificar su paridad
 
     tablero = numpy.zeros((6,6))
     tableroEscondido = numpy.asmatrix(valoresRandom).reshape(6,6)
+    tableroVerifiacion = numpy.ones((6,6))
 
     # Comenzar el juego
     print("\nEl juego comienza en: ")
@@ -86,21 +81,71 @@ def juego():
     time.sleep(1)
 
     print(numpy.matrix(tablero),"\n")
-    #TODO: inputs
+
+    while True:
+        # Esperar un input de casilla 1 del jugador
+        while True:
+            casillaSeleccionadaX = int(input("Escriba las coordenadas de una casilla\nCoordenada-X:  "))
+            casillaSeleccionadaY = int(input("Coordenada-Y: "))
+            if casillaSeleccionadaX >= 1 and casillaSeleccionadaX <= 6 and casillaSeleccionadaY >= 1 and casillaSeleccionadaY <= 6 and tablero.item((casillaSeleccionadaX - 1, casillaSeleccionadaY - 1)) == 0:
+                break
+        
+        # Mostrar valor de casilla 1
+        numpy.put(tablero, casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1, tableroEscondido.item((casillaSeleccionadaX - 1, casillaSeleccionadaY - 1)))
+        print("\n",tablero)
+
+        # Esperar un input de casilla 2 del jugador
+        while True:
+            casillaSeleccionadaX2 = int(input("\nEscriba las coordenadas de otra casilla\nCoordenada-X:  "))
+            casillaSeleccionadaY2 = int(input("Coordenada-Y: "))
+            if casillaSeleccionadaX2 >= 1 and casillaSeleccionadaX2 <= 6 and casillaSeleccionadaY2 >= 1 and casillaSeleccionadaY2 <= 6 and (casillaSeleccionadaY2 != casillaSeleccionadaY or casillaSeleccionadaX != casillaSeleccionadaX2) and tablero.item((casillaSeleccionadaX2 - 1, casillaSeleccionadaY2 - 1)) == 0:
+                break
+        
+        # Mostrar valor de casilla 2
+        numpy.put(tablero, casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1, tableroEscondido.item((casillaSeleccionadaX2 - 1, casillaSeleccionadaY2 - 1)))
+        print("\n",tablero)
+
+        # Verificar paridad
+        if tableroEscondido.item((casillaSeleccionadaX - 1, casillaSeleccionadaY - 1)) == tableroEscondido.item((casillaSeleccionadaX2 - 1, casillaSeleccionadaY2 - 1)):
+            numpy.put(tablero, casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1, 1)
+            numpy.put(tablero, casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1, 1)
+            print("\n ¡Encontraste un par!")
+        else:
+            numpy.put(tablero, casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1, 0)
+            numpy.put(tablero, casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1, 0)
+            print("\nEstos números no son pares, intenta de nuevo.")
+
+        # Verificar si se han encontrado todos los pares
+        if (tablero==tableroVerifiacion).all():
+            print("\n\n\n¡Has Ganado!")
+            return 1
     
 # TERMINAN FUNCIONES ------------------------------------------
 
-# Iniciar el juego
-principio = inicio() 
+while True:     
 
-# Preguntarle si quiere leer las reglas
-if principio == 0:
-    opcionLeerReglas = leerReglas()
+    # Verificar si el usuario quiere jugar otra vez, en caso de ya haber jugado       
+    if otraVez == "n":
+        print("\n\nMuchas gracias por jugar, ¡hasta la próxima!")
+        break
 
-# Si quiere leer las reglas, las muestra
-if opcionLeerReglas == 1:
-    opcionReglas = reglas() 
+    # Iniciar el juego
+    principio = inicio() 
 
-# Si no quiso leer las reglas, o si ya las leyó, empieza el juego
-if opcionLeerReglas == 0 or opcionReglas == 1: 
-    juego()
+    # Preguntarle si quiere leer las reglas
+    if principio == 0:
+        opcionLeerReglas = leerReglas()
+
+    # Si quiere leer las reglas, las muestra
+    if opcionLeerReglas == 1:
+        opcionReglas = reglas() 
+
+    # Si no quiso leer las reglas, o si ya las leyó, empieza el juego
+    if opcionLeerReglas == 0 or opcionReglas == 1: 
+        ganar = juego()
+
+    if ganar == 1:
+        while True:
+            otraVez = input(("\n¿Quieres jugar otra vez? (y/n): "))
+            if otraVez == "y" or otraVez == "n":
+                break
