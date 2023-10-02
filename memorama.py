@@ -87,22 +87,22 @@ def juego():
         while True:
             casillaSeleccionadaX = int(input("Escriba las coordenadas de una casilla\nCoordenada-X:  "))
             casillaSeleccionadaY = int(input("Coordenada-Y: "))
-            if casillaSeleccionadaX >= 1 and casillaSeleccionadaX <= 6 and casillaSeleccionadaY >= 1 and casillaSeleccionadaY <= 6 and tablero.item((casillaSeleccionadaX - 1, casillaSeleccionadaY - 1)) == 0:
+            if casillaSeleccionadaX >= 1 and casillaSeleccionadaX <= 6 and casillaSeleccionadaY >= 1 and casillaSeleccionadaY <= 6 and tablero.item(casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1) == 0:
                 break
         
         # Mostrar valor de casilla 1
-        numpy.put(tablero, casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1, tableroEscondido.item((casillaSeleccionadaX - 1, casillaSeleccionadaY - 1)))
+        numpy.put(tablero, casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1, tableroEscondido.item(casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1))
         print("\n",tablero)
 
         # Esperar un input de casilla 2 del jugador
         while True:
             casillaSeleccionadaX2 = int(input("\nEscriba las coordenadas de otra casilla\nCoordenada-X:  "))
             casillaSeleccionadaY2 = int(input("Coordenada-Y: "))
-            if casillaSeleccionadaX2 >= 1 and casillaSeleccionadaX2 <= 6 and casillaSeleccionadaY2 >= 1 and casillaSeleccionadaY2 <= 6 and (casillaSeleccionadaY2 != casillaSeleccionadaY) or (casillaSeleccionadaX != casillaSeleccionadaX2) and tablero.item((casillaSeleccionadaX2 - 1, casillaSeleccionadaY2 - 1)) == 0:
+            if casillaSeleccionadaX2 >= 1 and casillaSeleccionadaX2 <= 6 and casillaSeleccionadaY2 >= 1 and casillaSeleccionadaY2 <= 6 and (casillaSeleccionadaY2 != casillaSeleccionadaY) or (casillaSeleccionadaX != casillaSeleccionadaX2) and tablero.item(casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1) == 0:
                 break
         
         # Mostrar valor de casilla 2
-        numpy.put(tablero, casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1, tableroEscondido.item((casillaSeleccionadaX2 - 1, casillaSeleccionadaY2 - 1)))
+        numpy.put(tablero, casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1, tableroEscondido.item(casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1))
         print("\n",tablero)
 
         # Verificar paridad
@@ -155,5 +155,10 @@ while True:
 Problemas:
 5,4 no jala en la primera
 4,3 no jala en la primera
+6,4 no siempre jala
 no checa correctamente si hay un 1 en el espacio; se updatea a un 0 si se adivina inccorrectamente cuando debería ser un valor estático
+
+creo que todo radica en que los componentes x  y y de las celdas del tablero escondido están invertidos
+eso o el tablero normal lo está
+checar doumentación numpy porque (x,y)???
 """
