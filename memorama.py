@@ -151,3 +151,9 @@ while True:
             otraVez = input(("\n¿Quieres jugar otra vez? (y/n): "))
             if otraVez == "y" or otraVez == "n":
                 break
+"""
+Problemas:
+5,4 no jala en la primera
+4,3 no jala en la primera
+no checa correctamente si hay un 1 en el espacio; se updatea a un 0 si se adivina inccorrectamente cuando debería ser un valor estático
+"""
