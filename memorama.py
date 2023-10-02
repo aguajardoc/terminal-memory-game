@@ -88,39 +88,41 @@ def juego():
         print(numpy.matrix(tablero),"\n")
         # Esperar un input de casilla 1 del jugador
         while True:
-            casillaSeleccionadaX = int(input("Escriba las coordenadas de una casilla\nCoordenada-X:  "))
-            casillaSeleccionadaY = int(input("Coordenada-Y: "))
-            if casillaSeleccionadaX >= 1 and casillaSeleccionadaX <= 6 and casillaSeleccionadaY >= 1 and casillaSeleccionadaY <= 6 and tablero.item(casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1) == 0:
+            X = int(input("Escriba las coordenadas de una casilla\nCoordenada-X:  "))
+            Y = int(input("Coordenada-Y: "))
+            fetch = Y * 6 - (6 - X) - 1
+            if X >= 1 and X <= 6 and Y >= 1 and Y <= 6 and tablero.item(fetch) == 0:
                 break
             else:
                 print("\n¡Esta coordenada es inválida!\nRecuerda que los espacios marcados con \"1\" están fuera de juego y que el rango de las coordenadas es de 1 a 6.\n")
         
         # Mostrar valor de casilla 1
-        numpy.put(tablero, casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1, tableroEscondido.item(casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1))
+        numpy.put(tablero, fetch, tableroEscondido.item(fetch))
         print("\n",tablero)
 
         # Esperar un input de casilla 2 del jugador
         while True:
-            casillaSeleccionadaX2 = int(input("\nEscriba las coordenadas de otra casilla\nCoordenada-X:  "))
-            casillaSeleccionadaY2 = int(input("Coordenada-Y: "))
-            if casillaSeleccionadaX2 >= 1 and casillaSeleccionadaX2 <= 6 and casillaSeleccionadaY2 >= 1 and casillaSeleccionadaY2 <= 6 and (casillaSeleccionadaY2 != casillaSeleccionadaY) or (casillaSeleccionadaX != casillaSeleccionadaX2) and tablero.item(casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1) == 0:
+            X2 = int(input("\nEscriba las coordenadas de otra casilla\nCoordenada-X:  "))
+            Y2 = int(input("Coordenada-Y: "))
+            fetch2 = Y2 * 6 - (6 - X2) - 1
+            if X2 >= 1 and X2 <= 6 and Y2 >= 1 and Y2 <= 6 and (Y2 != Y) or (X != X2) and tablero.item(fetch2) == 0:
                 break
             else:
                 print("\n¡Esta coordenada es inválida!\nRecuerda que los espacios marcados con \"1\" están fuera de juego y que el rango de las coordenadas es de 1 a 6.\n")
         
         # Mostrar valor de casilla 2
-        numpy.put(tablero, casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1, tableroEscondido.item(casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1))
+        numpy.put(tablero, fetch2, tableroEscondido.item(fetch2))
         print("\n",tablero)
 
         # Verificar paridad
-        if tableroEscondido.item(casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1) == tableroEscondido.item(casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1):
-            numpy.put(tablero, casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1, 1)
-            numpy.put(tablero, casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1, 1)
+        if tableroEscondido.item(fetch) == tableroEscondido.item(fetch2):
+            numpy.put(tablero, fetch, 1)
+            numpy.put(tablero, fetch2, 1)
             print("\n¡Encontraste un par!")
             time.sleep(1)
         else:
-            numpy.put(tablero, casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1, 0)
-            numpy.put(tablero, casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1, 0)
+            numpy.put(tablero, fetch, 0)
+            numpy.put(tablero, fetch2, 0)
             print("\nEstos números no son pares, intenta de nuevo.")
             time.sleep(1)
 
