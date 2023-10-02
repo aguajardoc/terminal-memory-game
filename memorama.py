@@ -79,6 +79,9 @@ def juego():
     time.sleep(1)
     print("1\n")
     time.sleep(1)
+    
+    # Empezar el cronómetro
+    cronoEmpieza = time.time()
 
     while True:
         print('\n' * 50)
@@ -89,6 +92,8 @@ def juego():
             casillaSeleccionadaY = int(input("Coordenada-Y: "))
             if casillaSeleccionadaX >= 1 and casillaSeleccionadaX <= 6 and casillaSeleccionadaY >= 1 and casillaSeleccionadaY <= 6 and tablero.item(casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1) == 0:
                 break
+            else:
+                print("\n¡Esta coordenada es inválida!\nRecuerda que los espacios marcados con \"1\" están fuera de juego y que el rango de las coordenadas es de 1 a 6.\n")
         
         # Mostrar valor de casilla 1
         numpy.put(tablero, casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1, tableroEscondido.item(casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1))
@@ -100,13 +105,15 @@ def juego():
             casillaSeleccionadaY2 = int(input("Coordenada-Y: "))
             if casillaSeleccionadaX2 >= 1 and casillaSeleccionadaX2 <= 6 and casillaSeleccionadaY2 >= 1 and casillaSeleccionadaY2 <= 6 and (casillaSeleccionadaY2 != casillaSeleccionadaY) or (casillaSeleccionadaX != casillaSeleccionadaX2) and tablero.item(casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1) == 0:
                 break
+            else:
+                print("\n¡Esta coordenada es inválida!\nRecuerda que los espacios marcados con \"1\" están fuera de juego y que el rango de las coordenadas es de 1 a 6.\n")
         
         # Mostrar valor de casilla 2
         numpy.put(tablero, casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1, tableroEscondido.item(casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1))
         print("\n",tablero)
 
         # Verificar paridad
-        if tableroEscondido.item((casillaSeleccionadaX - 1, casillaSeleccionadaY - 1)) == tableroEscondido.item((casillaSeleccionadaX2 - 1, casillaSeleccionadaY2 - 1)):
+        if tableroEscondido.item(casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1) == tableroEscondido.item(casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1):
             numpy.put(tablero, casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1, 1)
             numpy.put(tablero, casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1, 1)
             print("\n¡Encontraste un par!")
@@ -120,6 +127,9 @@ def juego():
         # Verificar si se han encontrado todos los pares
         if (tablero==tableroVerifiacion).all():
             print("\n\n\n¡Has Ganado!")
+            cronoTermina = time.time()
+            tiempo = cronoTermina - cronoEmpieza
+            print(f"¡Completaste el memorama en {tiempo} segundos!\n¿Crees poder mejorarlo?\n")
             return 1
     
 # TERMINAN FUNCIONES ------------------------------------------
@@ -129,7 +139,7 @@ while True:
     # Verificar si el usuario quiere jugar otra vez, en caso de ya haber jugado       
     if otraVez == "n":
         print("\n\nMuchas gracias por jugar, ¡hasta la próxima!")
-        break
+        exit()
 
     # Iniciar el juego
     principio = inicio() 
@@ -148,17 +158,7 @@ while True:
 
     if ganar == 1:
         while True:
+            time.sleep(1)
             otraVez = input(("\n¿Quieres jugar otra vez? (y/n): "))
             if otraVez == "y" or otraVez == "n":
                 break
-"""
-Problemas:
-5,4 no jala en la primera
-4,3 no jala en la primera
-6,4 no siempre jala
-no checa correctamente si hay un 1 en el espacio; se updatea a un 0 si se adivina inccorrectamente cuando debería ser un valor estático
-
-creo que todo radica en que los componentes x  y y de las celdas del tablero escondido están invertidos
-eso o el tablero normal lo está
-checar doumentación numpy porque (x,y)???
-"""
