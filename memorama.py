@@ -88,7 +88,7 @@ def juego():
         print(numpy.matrix(tablero),"\n")
         # Esperar un input de casilla 1 del jugador
         while True:
-            X = int(input("Escriba las coordenadas de una casilla\nCoordenada-X:  "))
+            X = int(input("Escriba las coordenadas de una casilla\nCoordenada-X: "))
             Y = int(input("Coordenada-Y: "))
             fetch = Y * 6 - (6 - X) - 1
             if X >= 1 and X <= 6 and Y >= 1 and Y <= 6 and tablero.item(fetch) == 0:
@@ -102,7 +102,7 @@ def juego():
 
         # Esperar un input de casilla 2 del jugador
         while True:
-            X2 = int(input("\nEscriba las coordenadas de otra casilla\nCoordenada-X:  "))
+            X2 = int(input("\nEscriba las coordenadas de otra casilla\nCoordenada-X: "))
             Y2 = int(input("Coordenada-Y: "))
             fetch2 = Y2 * 6 - (6 - X2) - 1
             if X2 >= 1 and X2 <= 6 and Y2 >= 1 and Y2 <= 6 and (Y2 != Y) or (X != X2) and tablero.item(fetch2) == 0:
@@ -131,16 +131,18 @@ def juego():
             print("\n\n\n¡Has Ganado!")
             cronoTermina = time.time()
             tiempo = cronoTermina - cronoEmpieza
-            print(f"¡Completaste el memorama en {tiempo} segundos!\n¿Crees poder mejorarlo?\n")
+            print(f"¡Completaste el memorama en {round(tiempo, 2)} segundos!\n¿Crees poder batir tu récord?\n")
             return 1
     
 # TERMINAN FUNCIONES ------------------------------------------
 
+otraVez = "y"
+
 while True:
-    otraVez = "y"
     # Verificar si el usuario quiere jugar otra vez, en caso de ya haber jugado       
     if otraVez == "n":
         print("\n\nMuchas gracias por jugar, ¡hasta la próxima!")
+        time.sleep(1)
         exit()
 
     # Iniciar el juego
@@ -157,7 +159,8 @@ while True:
     # Si no quiso leer las reglas, o si ya las leyó, empieza el juego
     if opcionLeerReglas == 0 or opcionReglas == 1: 
         ganar = juego()
-
+    
+    # Si ganó, preguntar si quiere volver a jugar
     if ganar == 1:
         while True:
             time.sleep(1)
