@@ -23,7 +23,7 @@ def leerReglas():
 
 def reglas():
     while True:
-        print("\n\n¡Bienvenido al Memorama!\nEl número de jugadores se limita a 1.\nSe presentará un tablero de cartas en un arreglo 6x6 en el que se esconden pares de elementos.\nTu objetivo: encontrar todos los pares.\nCada turno, podrás seleccionar dos cartas.\nSi estas forman un par, se removerán del tablero y ¡estarás más cerca de ganar!\nPero si no forman un par, se regresarán a su posición inicial para que lo vuelvas a intentar.\n")
+        print("\n\n¡Bienvenido al Memorama!\nEl número de jugadores se limita a 1.\nSe presentará un tablero de cartas en un arreglo 6x6 en el que se esconden pares de elementos.\nTu objetivo: encontrar todos los pares.\nCada turno, podrás seleccionar dos cartas.\nEsto lo harás tecleando la coordenada-X y la coordenada-Y correspondiente a la casilla que quieras seleccionar.\nToma en cuenta que los valores aceptados van del 1 al 6 para X y para Y.\nSi estas forman un par, se removerán del tablero y ¡estarás más cerca de ganar!\nPero si no forman un par, se regresarán a su posición inicial para que lo vuelvas a intentar.\n")
         rEmpezar = input("¡¿Estás listo para jugar!? (y/n): ")
         if rEmpezar == "y":
             return 1 # Empieza el juego
@@ -80,9 +80,9 @@ def juego():
     print("1\n")
     time.sleep(1)
 
-    print(numpy.matrix(tablero),"\n")
-
     while True:
+        print('\n' * 50)
+        print(numpy.matrix(tablero),"\n")
         # Esperar un input de casilla 1 del jugador
         while True:
             casillaSeleccionadaX = int(input("Escriba las coordenadas de una casilla\nCoordenada-X:  "))
@@ -98,7 +98,7 @@ def juego():
         while True:
             casillaSeleccionadaX2 = int(input("\nEscriba las coordenadas de otra casilla\nCoordenada-X:  "))
             casillaSeleccionadaY2 = int(input("Coordenada-Y: "))
-            if casillaSeleccionadaX2 >= 1 and casillaSeleccionadaX2 <= 6 and casillaSeleccionadaY2 >= 1 and casillaSeleccionadaY2 <= 6 and (casillaSeleccionadaY2 != casillaSeleccionadaY or casillaSeleccionadaX != casillaSeleccionadaX2) and tablero.item((casillaSeleccionadaX2 - 1, casillaSeleccionadaY2 - 1)) == 0:
+            if casillaSeleccionadaX2 >= 1 and casillaSeleccionadaX2 <= 6 and casillaSeleccionadaY2 >= 1 and casillaSeleccionadaY2 <= 6 and (casillaSeleccionadaY2 != casillaSeleccionadaY) or (casillaSeleccionadaX != casillaSeleccionadaX2) and tablero.item((casillaSeleccionadaX2 - 1, casillaSeleccionadaY2 - 1)) == 0:
                 break
         
         # Mostrar valor de casilla 2
@@ -109,11 +109,13 @@ def juego():
         if tableroEscondido.item((casillaSeleccionadaX - 1, casillaSeleccionadaY - 1)) == tableroEscondido.item((casillaSeleccionadaX2 - 1, casillaSeleccionadaY2 - 1)):
             numpy.put(tablero, casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1, 1)
             numpy.put(tablero, casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1, 1)
-            print("\n ¡Encontraste un par!")
+            print("\n¡Encontraste un par!")
+            time.sleep(1)
         else:
             numpy.put(tablero, casillaSeleccionadaY * 6 - (6 - casillaSeleccionadaX) - 1, 0)
             numpy.put(tablero, casillaSeleccionadaY2 * 6 - (6 - casillaSeleccionadaX2) - 1, 0)
             print("\nEstos números no son pares, intenta de nuevo.")
+            time.sleep(1)
 
         # Verificar si se han encontrado todos los pares
         if (tablero==tableroVerifiacion).all():
@@ -122,8 +124,8 @@ def juego():
     
 # TERMINAN FUNCIONES ------------------------------------------
 
-while True:     
-
+while True:
+    otraVez = "y"
     # Verificar si el usuario quiere jugar otra vez, en caso de ya haber jugado       
     if otraVez == "n":
         print("\n\nMuchas gracias por jugar, ¡hasta la próxima!")
