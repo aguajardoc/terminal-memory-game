@@ -5,7 +5,7 @@ import random
 # Imprimir el prompt hasta que el usuario decida jugar
 def inicio():
     while True:
-        empezar = input("¿Quieres jugar al memorama? (y/n): ")
+        empezar = input("\n¿Quieres jugar al memorama? (y/n): ")
         if empezar == "y":
             return 0
         else:
@@ -23,7 +23,7 @@ def leerReglas():
 
 def reglas():
     while True:
-        print("\n\n¡Bienvenido al Memorama!\nEl número de jugadores se limita a 1.\nSe presentará un tablero de cartas en un arreglo 6x6 en el que se esconden pares de elementos.\nTu objetivo: encontrar todos los pares.\nCada turno, podrás seleccionar dos cartas.\nEsto lo harás tecleando la coordenada-X y la coordenada-Y correspondiente a la casilla que quieras seleccionar.\nToma en cuenta que los valores aceptados van del 1 al 6 para X y para Y.\nSi estas forman un par, se removerán del tablero y ¡estarás más cerca de ganar!\nPero si no forman un par, se regresarán a su posición inicial para que lo vuelvas a intentar.\n")
+        print("\n\n¡Bienvenido al Memorama!\nEl número de jugadores se limita a 1.\nSe presentará un tablero de cartas en un arreglo 6x6 en el que se esconden pares de elementos.\nTu objetivo: encontrar todos los pares.\nCada turno, podrás seleccionar dos cartas.\nEsto lo harás tecleando la coordenada-X y la coordenada-Y correspondiente a la casilla que quieras seleccionar.\nToma en cuenta que los valores aceptados van del 1 al 6 para X y para Y, de izquierda a derecha y de arriba hacia abajo.\nSi estas forman un par, se removerán del tablero y ¡estarás más cerca de ganar!\nPero si no forman un par, se regresarán a su posición inicial para que lo vuelvas a intentar.\n")
         rEmpezar = input("¡¿Estás listo para jugar!? (y/n): ")
         if rEmpezar == "y":
             return 1 # Empieza el juego
