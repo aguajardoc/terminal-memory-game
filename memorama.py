@@ -8,8 +8,10 @@ def inicio():
         empezar = input("\n¿Quieres jugar al memorama? (y/n): ")
         if empezar == "y":
             return 0
-        else:
+        elif empezar == "n":
             exit() # Salir si no quiere jugar :(
+        else:
+            continue
 
 def leerReglas():
     while True:
@@ -37,6 +39,8 @@ def juego():
     # Generar una matriz 6x6 con valores aleatorios
     valoresRandom = numpy.full(36,0)
     valoresIndexados = numpy.full(36,-1)
+
+    Turnos = 0
 
     # Llenar los espacios
     for i in range(18):
@@ -88,11 +92,17 @@ def juego():
         print(numpy.matrix(tablero),"\n")
         # Esperar un input de casilla 1 del jugador
         while True:
-            X = int(input("Escriba las coordenadas de una casilla\nCoordenada-X: "))
-            Y = int(input("Coordenada-Y: "))
+            while True:
+                X = input("\nEscriba las coordenadas de una casilla\nCoordenada-X: ")
+                Y = input("Coordenada-Y: ")
+                if X.isnumeric and Y.isnumeric:
+                    break
+                else:
+                    continue
             fetch = Y * 6 - (6 - X) - 1
-            if X >= 1 and X <= 6 and Y >= 1 and Y <= 6 and tablero.item(fetch) == 0:
-                break
+            if X >= 1 and X <= 6 and Y >= 1 and Y <= 6:
+                if tablero.item(fetch) == 0:
+                    break
             else:
                 print("\n¡Esta coordenada es inválida!\nRecuerda que los espacios marcados con \"1\" están fuera de juego y que el rango de las coordenadas es de 1 a 6.\n")
         
@@ -102,11 +112,17 @@ def juego():
 
         # Esperar un input de casilla 2 del jugador
         while True:
-            X2 = int(input("\nEscriba las coordenadas de otra casilla\nCoordenada-X: "))
-            Y2 = int(input("Coordenada-Y: "))
+            while True:
+                X2 = input("\nEscriba las coordenadas de otra casilla\nCoordenada-X: ")
+                Y2 = input("Coordenada-Y: ")
+                if X2.isnumeric and Y2.isnumeric:
+                    break
+                else:
+                    continue
             fetch2 = Y2 * 6 - (6 - X2) - 1
-            if X2 >= 1 and X2 <= 6 and Y2 >= 1 and Y2 <= 6 and (Y2 != Y) or (X != X2) and tablero.item(fetch2) == 0:
-                break
+            if X2 >= 1 and X2 <= 6 and Y2 >= 1 and Y2 <= 6 and (Y2 != Y) or (X != X2):
+                if tablero.item(fetch2) == 0:
+                    break 
             else:
                 print("\n¡Esta coordenada es inválida!\nRecuerda que los espacios marcados con \"1\" están fuera de juego y que el rango de las coordenadas es de 1 a 6.\n")
         
@@ -114,24 +130,26 @@ def juego():
         numpy.put(tablero, fetch2, tableroEscondido.item(fetch2))
         print("\n",tablero)
 
-        # Verificar paridad
+        # Verificar paridad y sumar turnos
         if tableroEscondido.item(fetch) == tableroEscondido.item(fetch2):
             numpy.put(tablero, fetch, 1)
             numpy.put(tablero, fetch2, 1)
             print("\n¡Encontraste un par!")
-            time.sleep(1)
+            Turnos += 1
+            time.sleep(1.75)
         else:
             numpy.put(tablero, fetch, 0)
             numpy.put(tablero, fetch2, 0)
             print("\nEstos números no son pares, intenta de nuevo.")
-            time.sleep(1)
+            Turnos += 1
+            time.sleep(1.75)
 
         # Verificar si se han encontrado todos los pares
         if (tablero==tableroVerifiacion).all():
             print("\n\n\n¡Has Ganado!")
             cronoTermina = time.time()
             tiempo = cronoTermina - cronoEmpieza
-            print(f"¡Completaste el memorama en {round(tiempo, 2)} segundos!\n¿Crees poder batir tu récord?\n")
+            print(f"¡Completaste el memorama en {round(tiempo, 2)} segundos!\nTe tomó {Turnos} turnos.\n¿Crees poder batir tu récord?\n")
             return 1
     
 # TERMINAN FUNCIONES ------------------------------------------
@@ -167,3 +185,5 @@ while True:
             otraVez = input(("\n¿Quieres jugar otra vez? (y/n): "))
             if otraVez == "y" or otraVez == "n":
                 break
+            else:
+                continue
