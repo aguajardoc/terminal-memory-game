@@ -1,6 +1,7 @@
 import time
 import numpy
 import random
+import os
 
 # Imprimir el prompt hasta que el usuario decida jugar
 def inicio():
@@ -77,25 +78,31 @@ def juego():
     # Comenzar el juego
     print("\nEl juego comienza en: ")
     time.sleep(1)
-    print("3")
+    print("\033[1m\033[38;5;196m3\033[0m") # Hacer que uno sea rojo, amarillo y el último verde, además de estar en bold
     time.sleep(1)
-    print("2")
+    print("\033[1m\033[38;5;220m2\033[0m")
     time.sleep(1)
-    print("1\n")
+    print("\033[1m\033[38;5;28m1\033[0m\n")
     time.sleep(1)
     
     # Empezar el cronómetro
     cronoEmpieza = time.time()
 
     while True:
-        print('\n' * 50)
+        # Limpiar la terminal
+        os.system("cls")
+
+        # Imprimir estado actual del tablero
         print(numpy.matrix(tablero),"\n")
+
         # Esperar un input de casilla 1 del jugador
         while True:
             while True:
                 X = input("\nEscriba las coordenadas de una casilla\nCoordenada-X: ")
                 Y = input("Coordenada-Y: ")
                 if X.isnumeric and Y.isnumeric:
+                    X = int(X)
+                    Y = int(Y)
                     break
                 else:
                     continue
@@ -116,6 +123,8 @@ def juego():
                 X2 = input("\nEscriba las coordenadas de otra casilla\nCoordenada-X: ")
                 Y2 = input("Coordenada-Y: ")
                 if X2.isnumeric and Y2.isnumeric:
+                    X2 = int(X2)
+                    Y2 = int(Y2)
                     break
                 else:
                     continue
@@ -187,3 +196,11 @@ while True:
                 break
             else:
                 continue
+
+    # Features extras a implementar
+
+    """
+    Efectos de sonido, hacer la experiencia más rewarding
+    Niveles de dificultad, permitir que el usuario establezca limites de tiempo para retarse, fomentando la memoria
+    Social sharing + online leaderboards???
+    """
