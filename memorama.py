@@ -200,7 +200,5 @@ while True:
     # Features extras a implementar
 
     """
-    Efectos de sonido, hacer la experiencia más rewarding
-    Niveles de dificultad, permitir que el usuario establezca limites de tiempo para retarse, fomentando la memoria
-    Social sharing + online leaderboards???
+    Niveles de dificultad
     """
