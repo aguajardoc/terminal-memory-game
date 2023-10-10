@@ -26,7 +26,7 @@ def leerReglas():
 
 def reglas():
     while True:
-        print("\n\n¡Bienvenido al Memorama!\nEl número de jugadores se limita a 1.\nSe presentará un tablero de cartas en un arreglo 6x6 en el que se esconden pares de elementos.\nTu objetivo: encontrar todos los pares.\nCada turno, podrás seleccionar dos cartas.\nEsto lo harás tecleando la coordenada-X y la coordenada-Y correspondiente a la casilla que quieras seleccionar.\nToma en cuenta que los valores aceptados van del 1 al 6 para X y para Y, de izquierda a derecha y de arriba hacia abajo.\nSi estas forman un par, se removerán del tablero y ¡estarás más cerca de ganar!\nPero si no forman un par, se regresarán a su posición inicial para que lo vuelvas a intentar.\n")
+        print("\n\n¡Bienvenido al Memorama!\nEl número de jugadores se limita a 1.\nSe presentará un tablero de cartas en un arreglo 6x6 en el que se esconden pares de elementos.\nTu objetivo: encontrar todos los pares.\nCada turno, podrás seleccionar dos cartas volteadas (marcadas con un \"0\").\nEsto lo harás tecleando la coordenada-X y la coordenada-Y correspondiente a la casilla que quieras seleccionar.\nToma en cuenta que los valores aceptados van del 1 al 6 para X y para Y, de izquierda a derecha y de arriba hacia abajo.\nSi estas forman un par, se removerán del tablero (marcadas con un \"1\") y ¡estarás más cerca de ganar!\nPero si no forman un par, se regresarán a su posición inicial para que lo vuelvas a intentar.\n")
         rEmpezar = input("¡¿Estás listo para jugar!? (y/n): ")
         if rEmpezar == "y":
             return 1 # Empieza el juego
@@ -110,8 +110,10 @@ def juego():
             if X >= 1 and X <= 6 and Y >= 1 and Y <= 6:
                 if tablero.item(fetch) == 0:
                     break
+                else:
+                    print("\n¡Esta coordenada es inválida!\nRecuerda que los espacios marcados con \"1\" están fuera de juego.\n")
             else:
-                print("\n¡Esta coordenada es inválida!\nRecuerda que los espacios marcados con \"1\" están fuera de juego y que el rango de las coordenadas es de 1 a 6.\n")
+                print("\n¡Esta coordenada es inválida!\nRecuerda que el rango de las coordenadas es de 1 a 6.\n")
         
         # Mostrar valor de casilla 1
         numpy.put(tablero, fetch, tableroEscondido.item(fetch))
@@ -132,8 +134,10 @@ def juego():
             if X2 >= 1 and X2 <= 6 and Y2 >= 1 and Y2 <= 6 and (Y2 != Y) or (X != X2):
                 if tablero.item(fetch2) == 0:
                     break 
+                else:
+                    print("\n¡Esta coordenada es inválida!\nRecuerda que los espacios marcados con \"1\" están fuera de juego.\n")
             else:
-                print("\n¡Esta coordenada es inválida!\nRecuerda que los espacios marcados con \"1\" están fuera de juego y que el rango de las coordenadas es de 1 a 6.\n")
+                print("\n¡Esta coordenada es inválida!\nRecuerda que el rango de las coordenadas es de 1 a 6.\n")
         
         # Mostrar valor de casilla 2
         numpy.put(tablero, fetch2, tableroEscondido.item(fetch2))
@@ -145,13 +149,13 @@ def juego():
             numpy.put(tablero, fetch2, 1)
             print("\n¡Encontraste un par!")
             Turnos += 1
-            time.sleep(1.75)
+            time.sleep(2.05)
         else:
             numpy.put(tablero, fetch, 0)
             numpy.put(tablero, fetch2, 0)
             print("\nEstos números no son pares, intenta de nuevo.")
             Turnos += 1
-            time.sleep(1.75)
+            time.sleep(2.05)
 
         # Verificar si se han encontrado todos los pares
         if (tablero==tableroVerifiacion).all():
