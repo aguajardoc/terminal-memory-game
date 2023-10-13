@@ -107,7 +107,7 @@ def juego():
                 else:
                     continue
             fetch = Y * 6 - (6 - X) - 1
-            if X >= 1 and X <= 6 and Y >= 1 and Y <= 6:
+            if X >= 1 and X <= 6 and Y >= 1 and Y <= 6 and fetch <= 36 and fetch >= 1:
                 if tablero.item(fetch) == 0:
                     break
                 else:
@@ -131,7 +131,7 @@ def juego():
                 else:
                     continue
             fetch2 = Y2 * 6 - (6 - X2) - 1
-            if X2 >= 1 and X2 <= 6 and Y2 >= 1 and Y2 <= 6 and (Y2 != Y) or (X != X2):
+            if X2 >= 1 and X2 <= 6 and Y2 >= 1 and Y2 <= 6 and ((Y2 != Y) or (X != X2)) and fetch <= 36 and fetch >= 1:
                 if tablero.item(fetch2) == 0:
                     break 
                 else:
