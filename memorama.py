@@ -200,9 +200,3 @@ while True:
                 break
             else:
                 continue
-
-    # Features extras a implementar
-
-    """
-    Niveles de dificultad
-    """
