@@ -1,5 +1,8 @@
 # Memorama-Terminal
 
-Memorama que se ejecuta en la terminal.
+Simple memory game that runs exclusively on the terminal.
 
-Se utilizó Python en conjunto con NumPy para crear un entorno que se asemeje lo más posible a un memorama físico, con algunos elementos adicionales como el tiempo de resolución y el cómputo de turnos.
+The game is able to track RTA time, turn count, and allows a player to continue playing for multiple rounds.
+
+This project was designed as the final project for the Computational  Thinking for Engineering course, during my first semester at university. The course was taught in Spanish,
+so all comments and gameplay features are written with Spanish in mind.
