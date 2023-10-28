@@ -1,6 +1,6 @@
 # Memorama-Terminal
 
-Simple memory game that runs exclusively on the terminal.
+Simple memory game coded in Python that runs exclusively on the terminal.
 
 The game is able to track RTA time, turn count, and allows a player to continue playing for multiple rounds.
 
